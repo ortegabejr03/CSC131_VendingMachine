@@ -7,7 +7,7 @@ public class Main {
         
         Scanner scanner = new Scanner(System.in);
     
-        VendingMachine vendingMachine = null;
+        VendingMachine vendingMachine = new UserInterface();
     
         //Display the products
         vendingMachine.displayItems();

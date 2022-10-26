@@ -16,5 +16,6 @@ public interface VendingMachine{
     //Method to display change owed
     void displayChange();
 
+    void displayMoneyInfo();
 
 }
