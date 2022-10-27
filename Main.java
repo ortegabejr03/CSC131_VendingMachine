@@ -20,9 +20,17 @@ public class Main {
         vendingMachine.selectItem(itemChosen);
 
         //Request money from Customer
-        vendingMachine.displayChange();
+        vendingMachine.displayMoneyInfo();
+
         String moneyCollected = scanner.nextLine();
-        int [] moneyIn = {}; //TODO
+
+        int [] moneyIn = MoneyValue.separateMoney(moneyCollected); 
+
+
+
+
+
+
 
         vendingMachine.enterMoney(moneyIn);
         vendingMachine.displayChange();

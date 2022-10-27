@@ -1,6 +1,9 @@
+
+
 public class UserInterface implements VendingMachine{
 
     private int selectedItem;
+    private MoneySlots money1;
 
     @Override
     public void displayItems() {
@@ -9,8 +12,8 @@ public class UserInterface implements VendingMachine{
         System.out.println("       Select a Product       ");
         System.out.println("                              ");
 
-        for(Item item: Item.values()){
-            System.out.println("    " + item.getName());
+        for(Item.ItemsAvailable items: Item.ItemsAvailable.values()){
+            System.out.println("    " + items.getId() + ")  " + items.name() + " - Cost: " + items.getPrice());
         }
     }
 
@@ -26,15 +29,24 @@ public class UserInterface implements VendingMachine{
 
     @Override
     public void enterMoney(int... money) {
-        Calc calc = null;
-        Item item = Item.price(this.selectedItem);
-        int total = calc.calcTotal(null);
+        Calc calc = new Arithmetic();
+        Item.ItemsAvailable items = Item.ItemsAvailable.valueOf(this.selectedItem);
+        int total = calc.calcTotal(new MoneySlots(money));
+
+        int moneyAmount = total - items.getPrice();
+        this.money1 = calc.calcChange(moneyAmount);
         
     }
 
     @Override
     public void displayChange() {
-        // TODO Auto-generated method stub
+        System.out.println("================================================================");
+        System.out.println("Your change is: " + money1.getTotal() + " split into the following:");
+        System.out.println("    Dollars: " + money1.dollarSlot);
+        System.out.println("    Half-Dollars: " + money1.halfDollarSlot);
+        System.out.println("    Quarters: " + money1.quarterSlot);
+        System.out.println("    Dimes: " + money1.dimeSlot);
+        System.out.println("    Nickles: " + money1.nickleSlot);
         
     }
 

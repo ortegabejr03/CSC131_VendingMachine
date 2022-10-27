@@ -1,9 +1,9 @@
 public interface Calc {
 
     //Method to calculate the total
-    int calcTotal(MoneyValue moneyIn);
+    int calcTotal(MoneySlots moneyIn);
 
     //Method to return the change
-    MoneyValue calcChange(int change);
+    MoneySlots calcChange(int change);
     
 }
