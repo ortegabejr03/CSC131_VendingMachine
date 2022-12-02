@@ -8,34 +8,51 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
     
         VendingMachine vendingMachine = new UserInterface();
-    
-        //Display the products
-        vendingMachine.displayItems();
+        while (true){
+            //Display the products
+            vendingMachine.displayItems();
 
-        //Collect item info from customer
-        String userItem = scanner.nextLine();
-        int itemChosen = Integer.parseInt(userItem);
+            //Collect item info from customer
+            String userItem = scanner.nextLine();
 
-        //Put item into system
-        vendingMachine.selectItem(itemChosen);
+            //If stocker enters code then go to stocker interface
+            if(userItem.equals("*67")){
+                
 
-        //Request money from Customer
-        vendingMachine.displayMoneyInfo();
+                //Enter Stocker Interface until user wants out
+                while (!userItem.equals("4") ){
+                    
+                    StockerInterface.displayWelcome();
+                    userItem = scanner.nextLine();
+                
+                
+                }
+            } else{
+                
+                int itemChosen = Integer.parseInt(userItem);
+            
+                //Put item into system
+                vendingMachine.selectItem(itemChosen);
+                
+                //Request money from Customer
+                vendingMachine.displayMoneyInfo();
 
-        String moneyCollected = scanner.nextLine();
+                String moneyCollected = scanner.nextLine();
 
-        int [] moneyIn = MoneyValue.separateMoney(moneyCollected); 
-
-
+                int [] moneyIn = MoneyValue.separateMoney(moneyCollected); 
 
 
 
 
 
-        vendingMachine.enterMoney(moneyIn);
-        vendingMachine.displayChange();
 
-        
-    }
+
+                vendingMachine.enterMoney(moneyIn);
+                vendingMachine.displayChange();
+            }
+        }
+
+            
+        }
     
 }
