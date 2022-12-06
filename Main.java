@@ -14,16 +14,20 @@ public class Main {
         items[2] = new Item("SPRITE", 3, 75, 8);
         items[3] = new Item("DORITOS", 4, 50, 9);
         items[4] = new Item("LAYS", 5, 50, 5);
-        items[5] = new Item("CHEETOS,", 6, 50, 9);
+        items[5] = new Item("CHEETOS", 6, 50, 9);
         items[6] = new Item("COOKIES", 7, 25, 6);
         items[7] = new Item("SNICKERS", 8, 25, 7);
 
+        //initialize the rest of the available items
+        for(int i = 8; i < 12; i++){
+            items[i] = new Item(null, -1, -1, -1);
+        }
     
         VendingMachine vendingMachine = new UserInterface(items);
         while (true){
-            //Update Items to userInterface
+            //Update Items to userInterface and stockerInterface
             UserInterface.updateItems(items);
-        
+            StockerInterface.updateItems(items);
 
             //Display the products
             vendingMachine.displayItems();
@@ -41,6 +45,27 @@ public class Main {
                     
                     StockerInterface.displayWelcome();
                     userItem = scanner.nextLine();
+                    int itemChosen = Integer.parseInt(userItem);
+
+                    switch (itemChosen){
+                        case 1: StockerInterface.restockItem();
+                                items = StockerInterface.copyofItems;
+                                break;
+                        
+                        case 2: StockerInterface.removeItem();
+                                items = StockerInterface.copyofItems;
+                                break;
+                        case 3: StockerInterface.createItem();
+                                items = StockerInterface.copyofItems;
+                                break;
+                        case 4: StockerInterface.displayList();
+                                break;
+                        case 5: break;
+
+                        default:System.out.println("Please choose a valid option");
+                                break;
+                    }
+                    
                 
                 
                 }

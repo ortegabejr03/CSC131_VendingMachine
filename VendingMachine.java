@@ -1,6 +1,5 @@
 public interface VendingMachine{
     
-
     //Method to display the items available
     void displayItems();
 

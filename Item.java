@@ -34,5 +34,23 @@ public void removeOne(){
     this.quantity --;
 }
  
+public void addToQuantity(int num){
+    this.quantity += num;
+}
+
+public void removeItem(){
+    this.id = -1;
+    this.price = -1;
+    this.quantity = 0;
+    this.name = null;
+
+}
+
+public void createItem(String name, int id, int price, int quantity){
+    this.name = name;
+    this.id = id;
+    this.price = price;
+    this.quantity = quantity;
+}
 
 }

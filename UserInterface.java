@@ -1,9 +1,50 @@
-
+import java.util.Scanner;
 
 public class UserInterface implements VendingMachine{
-
+    //HOLDS max number of items being put into vending machine
+    static int MAX_NUM_ITEMS = 12;
     private int selectedItem;
     private MoneySlots money1;
+    static Item [] copyofItems = new Item[MAX_NUM_ITEMS];
+   
+    UserInterface(Item [] items){
+        this.copyofItems = items;
+    }
+
+    static void updateItems(Item []items){
+        copyofItems = items;
+    }
+
+    /*Gets the correct selection from the user
+     * -1 means there is an error
+     */
+    static int getSelection(int itemChosen){
+        Scanner scanner = new Scanner(System.in);
+        String userItem ;
+
+        boolean isAvailable = false;
+        while(!isAvailable){
+            
+            if (itemChosen <= 0 ||itemChosen > 12 ){                                                      //Wait until a valid item has been chosen
+                System.out.println("\nError: Please choose a valid item from the vending machine");
+                userItem = scanner.nextLine();
+                itemChosen = Integer.parseInt(userItem);
+            } else if(copyofItems[itemChosen] == null){                                                               //Wait until a valid item has been chosen
+                System.out.println("\nError: Please choose a valid item from the vending machine");
+                userItem = scanner.nextLine();
+                itemChosen = Integer.parseInt(userItem);
+            } else if (copyofItems[itemChosen].getQuantity() <= 0){
+                System.out.println("Error: We have ran out of the item you have chosen. Please choose another");
+                userItem = scanner.nextLine();
+                itemChosen = Integer.parseInt(userItem);
+            } else {
+                return itemChosen;
+            }
+        }
+
+
+        return -1;
+    }
 
     @Override
     public void displayItems() {
@@ -12,9 +53,14 @@ public class UserInterface implements VendingMachine{
         System.out.println("       Select a Product       ");
         System.out.println("                              ");
 
-        for(Item.ItemsAvailable items: Item.ItemsAvailable.values()){
-            System.out.println("    " + items.getId() + ")  " + items.name() + " - Cost: " + items.getPrice());
-        }
+        
+        for(int i = 0; i < MAX_NUM_ITEMS; i++){
+            if( copyofItems[i] != null){
+                if (copyofItems[i].getId() != -1){
+                    System.out.println("    " + copyofItems[i].getId() + ")  " + copyofItems[i].getName() + " - Cost: " + copyofItems[i].getPrice());
+                }   
+            }
+        }   
     }
 
     @Override
@@ -29,11 +75,10 @@ public class UserInterface implements VendingMachine{
 
     @Override
     public void enterMoney(int... money) {
-        Calc calc = new Arithmetic();
-        Item.ItemsAvailable items = Item.ItemsAvailable.valueOf(this.selectedItem);
+        Calc calc = new Arithmetic(); 
         int total = calc.calcTotal(new MoneySlots(money));
 
-        int moneyAmount = total - items.getPrice();
+        int moneyAmount = total - copyofItems[selectedItem -1].getPrice();
         this.money1 = calc.calcChange(moneyAmount);
         
     }
