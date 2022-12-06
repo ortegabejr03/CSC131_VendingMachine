@@ -1,39 +1,38 @@
 public class Item {
 
-public enum ItemsAvailable {
-    COKE(1,75), PEPSI(2,75), SPRITE(3,75), DORITOS(4,50), LAYS(5,50), CHEETOS(6,50), COOKIES(7,25), SNICKERS(8,25);
+private int MAX_NUM_ITEMS = 12;
+private int id;
+private int price;
+private int quantity;
+private String name;
 
-    private int id;
-    private int price;
-   
-    
-    ItemsAvailable(int id, int price){
-        this.id = id;
-        this.price = price;
-    }
-
-    public int getId(){
-        return this.id;
-    }
-
-    public int getPrice() {
-        return this.price;
-    }
-
-    public static ItemsAvailable valueOf(int itemSelected){
-        for(ItemsAvailable items: ItemsAvailable.values()){
-            if(itemSelected == items.getId()){
-                return items;
-            }
-        }
-        return null;
-    }
-
+Item(String name, int id, int price, int quantity){
+    this.name = name;
+    this.id = id;
+    this.price = price;
+    this.quantity = quantity;
 }
 
-   
+public int getId(){
+    
+    return this.id;
+}
 
+public int getPrice() {
+    return this.price;
+}
 
+public String getName(){
+    return this.name;
+}
 
+public int getQuantity(){
+    return this.quantity;
+}
+
+public void removeOne(){
+    this.quantity --;
+}
+ 
 
 }
