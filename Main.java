@@ -41,7 +41,7 @@ public class Main {
                 
 
                 //Enter Stocker Interface until user wants out
-                while (!userItem.equals("4") ){
+                while (!userItem.equals("5") ){
                     
                     StockerInterface.displayWelcome();
                     userItem = scanner.nextLine();
